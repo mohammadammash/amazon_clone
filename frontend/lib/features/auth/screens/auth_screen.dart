@@ -72,6 +72,9 @@ class _AuthScreenState extends State<AuthScreen> {
               //-------------------
               //START SIGNUP LOGIC
               ListTile(
+                tileColor: _auth == Auth.signup
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundColor,
                 title: const Text(
                   'Create Account',
                   style: TextStyle(
