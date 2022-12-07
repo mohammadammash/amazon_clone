@@ -1,3 +1,4 @@
+import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Amazon Clone',
+      theme: ThemeData(
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor, //bg_colors
+        colorScheme: const ColorScheme.light(
+          primary: GlobalVariables.secondaryColor, //bgs holding data (text...)
+        ),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black, //all icons color
+          ),
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Hey world'),
