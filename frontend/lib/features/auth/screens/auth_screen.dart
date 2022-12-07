@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 
 //Radio button values
@@ -12,7 +13,22 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Auth _auth = Auth.signup; //group value by default //State //radio input val
+  Auth _auth = Auth.signup; //State //radio input val with default value
+  final _signUpFormKey = GlobalKey<FormState>();
+  final _signInFormKey = GlobalKey<FormState>();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  //Clean memory
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +44,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontSize: GlobalVariables.textXL,
                     fontWeight: FontWeight.w500,
                   )),
+              //------------------
+              //START SIGNUP FORM
               ListTile(
                 title: const Text(
                   'Create Account',
@@ -46,6 +64,15 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                 ),
               ),
+              if (_auth == Auth.signup)
+                Form(
+                  key: _signUpFormKey,
+                  child: Column(
+                    children: [CustomTextField(controller: _emailController)],
+                  ),
+                ),
+              //END OF SIGNUP FORM
+              //------------------
               ListTile(
                 title: const Text(
                   'Sign-in',
