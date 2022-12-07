@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,30 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final signUpForm = Column(
+      children: [
+        CustomTextField(
+          controller: _nameController,
+          textPlaceholder: 'Name',
+        ),
+        const SizedBox(height: 10),
+        CustomTextField(
+          controller: _emailController,
+          textPlaceholder: 'Email',
+        ),
+        const SizedBox(height: 10),
+        CustomTextField(
+          controller: _passwordController,
+          textPlaceholder: 'Password',
+        ),
+        const SizedBox(height: 10),
+        CustomButton(
+          text: 'signup',
+          handlePress: () {},
+        ),
+      ],
+    );
+
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundColor,
       body: SafeArea(
@@ -44,8 +69,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontSize: GlobalVariables.textXL,
                     fontWeight: FontWeight.w500,
                   )),
-              //------------------
-              //START SIGNUP FORM
+              //-------------------
+              //START SIGNUP LOGIC
               ListTile(
                 title: const Text(
                   'Create Account',
@@ -65,14 +90,16 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               if (_auth == Auth.signup)
-                Form(
-                  key: _signUpFormKey,
-                  child: Column(
-                    children: [CustomTextField(controller: _emailController)],
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: _signUpFormKey,
+                    child: signUpForm,
                   ),
                 ),
-              //END OF SIGNUP FORM
-              //------------------
+              //END SIGNUP LOGIC
+              //----------------
               ListTile(
                 title: const Text(
                   'Sign-in',
