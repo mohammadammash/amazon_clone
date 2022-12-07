@@ -18,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
 
+  //I used same email&pass controllers for signin and signup so if user write email or pass in signup form and switched to login his/her data will also be shown there
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -33,6 +34,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //--------------
+    //START OF FORMS
     final signUpForm = Column(
       children: [
         CustomTextField(
@@ -56,7 +59,30 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ],
     );
+    final signInForm = Column(
+      children: [
+        const SizedBox(height: 10),
+        CustomTextField(
+          controller: _emailController,
+          textPlaceholder: 'Email',
+        ),
+        const SizedBox(height: 10),
+        CustomTextField(
+          controller: _passwordController,
+          textPlaceholder: 'Password',
+        ),
+        const SizedBox(height: 10),
+        CustomButton(
+          text: 'login',
+          handlePress: () {},
+        ),
+      ],
+    );
+    //END OF FORMS
+    //--------------
 
+    //------------
+    //MAIN RENDER
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundColor,
       body: SafeArea(
@@ -69,6 +95,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontSize: GlobalVariables.textXL,
                     fontWeight: FontWeight.w500,
                   )),
+              const SizedBox(height: 20),
+
               //-------------------
               //START SIGNUP LOGIC
               ListTile(
@@ -103,7 +131,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               //END SIGNUP LOGIC
               //----------------
+
+              //-------------------
+              //START LOGIN LOGIC
               ListTile(
+                tileColor: _auth == Auth.signin
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundColor,
                 title: const Text(
                   'Sign-in',
                   style: TextStyle(
@@ -121,6 +155,17 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                 ),
               ),
+              if (_auth == Auth.signin)
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: GlobalVariables.backgroundColor,
+                  child: Form(
+                    key: _signInFormKey,
+                    child: signInForm,
+                  ),
+                ),
+              //END LOGIN LOGIC
+              //-----------------
             ],
           ),
         ),
