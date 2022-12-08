@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup; //State //radio input val with default value
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
 
   //I used same email&pass controllers for signin and signup so if user write email or pass in signup form and switched to login his/her data will also be shown there
   final TextEditingController _emailController = TextEditingController();
@@ -30,6 +32,12 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  //calling internal function to send http request to server
+  void signUpUser(){
+    //no need to use BuildContext as param because we are in StatefulWidt
+    authService.signUpUser(context: context, email: _emailController.text, password: _passwordController.text, name: _nameController.text);
   }
 
   @override
@@ -55,7 +63,7 @@ class _AuthScreenState extends State<AuthScreen> {
         const SizedBox(height: 10),
         CustomButton(
           text: 'signup',
-          handlePress: () {},
+          handlePress: () => signUpUser(),
         ),
       ],
     );
