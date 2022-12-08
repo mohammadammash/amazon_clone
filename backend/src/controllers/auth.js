@@ -1,4 +1,5 @@
 const bcryptjs = require("bcryptjs");
+const User = require("../database/models/user");
 
 const registerUserController = async (req, res) => {
   try {
