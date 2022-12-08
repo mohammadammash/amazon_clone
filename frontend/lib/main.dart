@@ -1,7 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone/utils/helpers/router.dart';
+import 'package:amazon_clone/utils/router.dart';
 import 'package:flutter/material.dart';
 
 void main() {
