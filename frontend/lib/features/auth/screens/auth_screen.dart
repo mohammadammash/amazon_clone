@@ -35,9 +35,13 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   //calling internal function to send http request to server
-  void signUpUser(){
+  void signUpUser() {
     //no need to use BuildContext as param because we are in StatefulWidt
-    authService.signUpUser(context: context, email: _emailController.text, password: _passwordController.text, name: _nameController.text);
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text);
   }
 
   @override
@@ -63,10 +67,14 @@ class _AuthScreenState extends State<AuthScreen> {
         const SizedBox(height: 10),
         CustomButton(
           text: 'signup',
-          handlePress: () => signUpUser(),
+          handlePress: () => {
+            if (_signUpFormKey.currentState!.validate()) signUpUser()
+            //else it will show error validation for user automatically
+          },
         ),
       ],
     );
+
     final signInForm = Column(
       children: [
         const SizedBox(height: 10),
