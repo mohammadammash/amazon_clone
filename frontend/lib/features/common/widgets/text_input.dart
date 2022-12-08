@@ -16,6 +16,10 @@ class CustomTextField extends StatelessWidget {
     //TextFormField instead of TextForm to use validator arg
     return TextFormField(
       controller: controller,
+      validator: (val) {
+        if (val == null || val.isEmpty) return 'Enter your $textPlaceholder';
+        return null; //null => no errors
+      },
       decoration: InputDecoration(
         hintText: textPlaceholder,
         border: const OutlineInputBorder(
