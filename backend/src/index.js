@@ -3,6 +3,8 @@ const app = express();
 require("dotenv").config();
 require("./database/connection");
 
+app.use(express.json());
+
 const authRoutes = require("./routes/auth");
 app.use("/api", authRoutes);
 
