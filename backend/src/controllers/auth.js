@@ -1,4 +1,6 @@
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+//internal
 const User = require("../database/models/user");
 
 const registerUserController = async (req, res) => {
@@ -26,7 +28,24 @@ const registerUserController = async (req, res) => {
 };
 
 const loginUserController = async (req, res) => {
-  res.json({ message: "okay" });
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email }).lean();
+    if (!user) {
+      return res.status(400).json({ msg: "User with this email does not exist!" });
+    }
+
+    const isMatch = await bcryptjs.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "InValid Credentials" });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY); //secondParam is key to add to token encoding and decode
+    res.json({ token, ...user });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 };
 
 module.exports = {
