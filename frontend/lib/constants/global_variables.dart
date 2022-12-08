@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+String baseURL = 'http://192.168.1.3:3000';
+
 class GlobalVariables {
   //----------------
   // START OF COLORS
@@ -23,7 +25,6 @@ class GlobalVariables {
   //START OF TYPOGRAPHY
   static const double textXL = 22;
   static const double textLG = 20;
-
   //END OF TYPOGRAPHY
   //-------------------
 
