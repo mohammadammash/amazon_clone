@@ -48,7 +48,17 @@ const loginUserController = async (req, res) => {
   }
 };
 
+const getUserDataController = async (req, res) => {
+  try {
+    const currentUser = req.user;
+    res.status(200).json(currentUser);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
 module.exports = {
   loginUserController,
   registerUserController,
+  getUserDataController,
 };
