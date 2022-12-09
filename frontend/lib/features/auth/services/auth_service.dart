@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/models/user.dart';
@@ -13,11 +12,12 @@ import 'package:shared_preferences/shared_preferences.dart'; //to make HTTP requ
 
 class AuthService {
   //SignIn Helper
-  void _updateUserProviderAndRedirect(
-      {required BuildContext context, required user}) {
+  void _updateUserProvider({required BuildContext context, required user}) {
     Provider.of<UserProvider>(context, listen: false).setUser(user);
-    showSnackBar(context, 'User Success');
-    Navigator.pushNamed(context, RoutesNames.homeScreen);
+  }
+
+  void _navigateToScreen({required BuildContext context, required routeName}) {
+    Navigator.pushNamed(context, routeName);
   }
 
   void signUpUser({
@@ -84,11 +84,43 @@ class AuthService {
             GlobalVariables.authToken,
             jsonDecode(response.body)['token'],
           );
-          _updateUserProviderAndRedirect(context: context, user: response.body);
+          _updateUserProvider(context: context, user: response.body);
+          _navigateToScreen(
+              context: context, routeName: RoutesNames.homeScreen);
         },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  //function to check when app runs if user token exists to redirect user instantly
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? authToken = prefs.getString(GlobalVariables.authToken);
+
+      // ignore: prefer_conditional_assignment
+      if (authToken == null) return;
+
+      http.Response response = await http.get(
+        Uri.parse('$baseURL/api/user'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': authToken
+        },
+      );
+      debugPrint('-------------');
+      debugPrint(response.body);
+      debugPrint(authToken);
+      debugPrint('-------------');
+
+      //Update provider and addUser returned if token exists and valid
+      _updateUserProvider(context: context, user: response.body);
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }
