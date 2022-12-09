@@ -43,6 +43,13 @@ class _AuthScreenState extends State<AuthScreen> {
         password: _passwordController.text,
         name: _nameController.text);
   }
+  void signInUser() {
+    //no need to use BuildContext as param because we are in StatefulWidt
+    authService.signInUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +97,9 @@ class _AuthScreenState extends State<AuthScreen> {
         const SizedBox(height: 10),
         CustomButton(
           text: 'login',
-          handlePress: () {},
+          handlePress: (){
+            if (_signInFormKey.currentState!.validate()) signInUser();
+          },
         ),
       ],
     );
