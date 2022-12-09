@@ -28,4 +28,10 @@ class GlobalVariables {
   //END OF TYPOGRAPHY
   //-------------------
 
+  //---------------------
+  //START OF GLOBAL NAMES
+  static const authToken = 'x-auth-token';
+  //END OF GLOBAL NAMES
+  //----------------------
+
 }
