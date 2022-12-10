@@ -1,6 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/profile/widgets/below_appbar_header.dart';
 import 'package:amazon_clone/features/profile/widgets/profile_button.dart';
+import 'package:amazon_clone/features/profile/widgets/single_product.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -11,6 +12,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  //temporary orders list
+  List orders_data = [
+    'https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1537589376225-5405c60a5bd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGlwaG9uZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 20),
           //----------------------------
           //START OF YOUR ORDERS SECTION
+          //Titles
           Column(
             children: [
               Row(
@@ -109,6 +118,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   )
                 ],
+              ),
+              //Display Orders
+              Container(
+                height: 170,
+                padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: orders_data.length,
+                  itemBuilder: ((context, index) {
+                    return SingleProduct(productImage: orders_data[index]);
+                  }),
+                ),
               )
             ],
           )
