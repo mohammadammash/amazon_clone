@@ -58,6 +58,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           const BelowAppBarHeader(),
           const SizedBox(height: 10),
+          //-------------------------
+          //START OF TOP BUTTONS
           Column(
             children: [
               Row(
@@ -75,7 +77,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )
             ],
           ),
-          const SizedBox(height: 10),
+          //END OF TOP BUTTONS
+          //-------------------------
+          const SizedBox(height: 20),
+          //----------------------------
+          //START OF YOUR ORDERS SECTION
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: const Text(
+                      'Your Orders',
+                      style: TextStyle(
+                        fontSize: GlobalVariables.textMD,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Text(
+                      'See all',
+                      style: TextStyle(
+                        color: GlobalVariables.selectedNavBarColor,
+                        fontSize: GlobalVariables.textMD,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
+          //END OF YOUR ORDERS SECTION
+          //----------------------------
         ],
       ),
     );
