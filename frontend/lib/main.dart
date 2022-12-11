@@ -1,7 +1,8 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/auth/services/auth_service.dart';
-import 'package:amazon_clone/features/common/navigations/bottom_navbar.dart';
+import 'package:amazon_clone/features/common/navigations/admin_navigator.dart';
+import 'package:amazon_clone/features/common/navigations/user_navigator.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/utils/router.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,8 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final currentUser = Provider.of<UserProvider>(context).user;
+
     return MaterialApp(
       title: 'Amazon Clone',
       debugShowCheckedModeBanner: false,
@@ -54,7 +57,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       //--------------------
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty ? const BottomBar() : const AuthScreen(),
+      home: currentUser.token.isNotEmpty
+          ? currentUser.type == GlobalVariables.adminUserType
+              ? const AdminBottomNavbar()
+              : const BottomBar()
+          : const AuthScreen(),
       //----------------
     );
   }
