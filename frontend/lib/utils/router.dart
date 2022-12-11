@@ -1,6 +1,6 @@
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone/features/common/navigations/bottom_navbar.dart';
+import 'package:amazon_clone/features/common/navigations/user_navigator.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import "package:flutter/material.dart";
 
@@ -18,7 +18,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case RoutesNames.userHomeBottomNavigation:
       return MaterialPageRoute(
-        builder: (context) => const BottomBar(),
+        builder: (context) => const UserNavigator(),
       );
 
     //default (error) if not route name is matched
