@@ -59,8 +59,8 @@ class _MyAppState extends State<MyApp> {
       //--------------------
       home: currentUser.token.isNotEmpty
           ? currentUser.type == GlobalVariables.adminUserType
-              ? const AdminBottomNavbar()
-              : const BottomBar()
+              ? const AdminNavigator()
+              : const UserNavigator()
           : const AuthScreen(),
       //----------------
     );
