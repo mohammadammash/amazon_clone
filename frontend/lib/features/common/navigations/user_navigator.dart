@@ -3,14 +3,14 @@ import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/profile/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+class UserNavigator extends StatefulWidget {
+  const UserNavigator({super.key});
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<UserNavigator> createState() => _UserNavigatorState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _UserNavigatorState extends State<UserNavigator> {
   int page = 0;
 
   List<Widget> pages = [
