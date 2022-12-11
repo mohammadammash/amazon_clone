@@ -26,6 +26,7 @@ class GlobalVariables {
   static const double textXL = 22;
   static const double textLG = 20;
   static const double textMD = 18;
+  static const double textXS = 12;
   //END OF TYPOGRAPHY
   //-------------------
 
