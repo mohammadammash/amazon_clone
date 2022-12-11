@@ -33,6 +33,7 @@ class GlobalVariables {
   //---------------------
   //START OF GLOBAL NAMES
   static const authToken = 'x-auth-token';
+  static const adminUserType = 'admin';
   //END OF GLOBAL NAMES
   //----------------------
 
