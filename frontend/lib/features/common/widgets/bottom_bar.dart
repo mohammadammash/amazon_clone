@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/common/widgets/bottom_bar_item.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
@@ -29,68 +30,30 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         items: [
           //------------------//
           //HOME:
-          BottomNavigationBarItem(
-            icon: Container(
-              width: _bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: widget.currentPage == 0
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: _bottomBarBorder,
-                  ),
-                ),
-              ),
-              child: const Icon(Icons.home_outlined),
-            ),
-            label: '', //should be added!!!
-          ),
-          //---------------------//
-          //ACCOUNT/PROFILE:
-          BottomNavigationBarItem(
-            icon: Container(
-              width: _bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: widget.currentPage == 1
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: _bottomBarBorder,
-                  ),
-                ),
-              ),
-              child: const Icon(Icons.person_outline_outlined),
-            ),
-            label: '', //should be added!!!
-          ),
-          //---------------------//
-          //CART:
-          BottomNavigationBarItem(
-            icon: Container(
-              width: _bottomBarWidth,
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: widget.currentPage == 2
-                        ? GlobalVariables.selectedNavBarColor
-                        : GlobalVariables.backgroundColor,
-                    width: _bottomBarBorder,
-                  ),
-                ),
-              ),
-              child: Badge(
-                elevation: 0,
-                badgeContent: const Text('2'),
-                badgeColor: Colors.yellow,
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
-                ),
-              ),
-            ),
-            label: '', //should be added!!!
-          ),
+          customBottomBarSingleItem(
+              _bottomBarWidth,
+              _bottomBarBorder,
+              widget.currentPage,
+              GlobalVariables.selectedNavBarColor,
+              GlobalVariables.unselectedNavBarColor,
+              Icons.home_outlined,
+              0),
+          customBottomBarSingleItem(
+              _bottomBarWidth,
+              _bottomBarBorder,
+              widget.currentPage,
+              GlobalVariables.selectedNavBarColor,
+              GlobalVariables.unselectedNavBarColor,
+              Icons.person_outline_outlined,
+              1),
+          customBottomBarSingleItem(
+              _bottomBarWidth,
+              _bottomBarBorder,
+              widget.currentPage,
+              GlobalVariables.selectedNavBarColor,
+              GlobalVariables.unselectedNavBarColor,
+              Icons.shopping_cart_outlined,
+              2),
         ]);
   }
 }
