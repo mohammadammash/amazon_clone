@@ -22,6 +22,14 @@ class ConstantDataLists {
     },
   ];
 
+  static const List<String> addProductsDropdownOptions = [
+    'Mobiles',
+    'Essentials',
+    'Appliances',
+    'Books',
+    'Fashion',
+  ];
+
   static const List<String> carouselImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
     'https://images-eu.ssl-images-amazon.com/images/G/31/img2021/Vday/bwl/English.jpg',
