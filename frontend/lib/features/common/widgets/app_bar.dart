@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String currentUserType;
-  const CustomAppBar({super.key, required this.currentUserType});
+  final String? title;
+  const CustomAppBar({super.key, required this.currentUserType, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +91,9 @@ class CustomAppBar extends StatelessWidget {
               ),
             )
           else
-            const Text(
-              'Admin',
-              style: TextStyle(
+            Text(
+              title == null ? 'Admin' : title!,
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
