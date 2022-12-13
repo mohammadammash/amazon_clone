@@ -47,6 +47,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
     });
   }
 
+  void handleSubmitAddProduct() async {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      productsServices.addProduct(
+          context: context,
+          name: productNameController.text,
+          description: descriptionController.text,
+          price: double.parse(priceController.text),
+          quantity: double.parse(quantityController.text),
+          category: dropdownSelectedCategory,
+          images: images);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +130,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
                   const SizedBox(height: 10),
                   CustomButton(
-                      text: 'Sell', handlePress: (){})
+                      text: 'Sell', handlePress: handleSubmitAddProduct)
                 ],
               ),
             ),
