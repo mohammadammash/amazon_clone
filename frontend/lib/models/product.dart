@@ -8,7 +8,6 @@ class Product {
   final String category;
   final double price;
   String? id; //optional to add according to response
-  String? userId;
 
   Product({
     required this.name,
@@ -18,7 +17,6 @@ class Product {
     required this.category,
     required this.price,
     this.id,
-    this.userId,
   });
 
     Map<String, dynamic> toMap() {
@@ -30,7 +28,6 @@ class Product {
       'category': category,
       'price': price,
       'id': id,
-      'userId': userId,
     };
   }
 
@@ -43,7 +40,6 @@ class Product {
       category: map['category'] ?? '',
       price: map['price'] ?? '',
       id: map['_id'] ?? '', //_id: since we're using mongoDB _id
-      userId: map['userId'] ?? '',
     );
   }
 
