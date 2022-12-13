@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart'; //to make HTTP requests
-
 class AuthService {
   //SignIn Helper
   void _updateUserProvider({required BuildContext context, required user}) {
@@ -33,7 +33,7 @@ class AuthService {
           token: "");
 
       http.Response response = await http.post(
-          Uri.parse('$baseURL/api/register'),
+          Uri.parse(ConstantApiUrls.registerURL),
           body: user.toJson(),
           headers: <String, String>{
             //to match express.json() in express server
@@ -61,7 +61,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      http.Response response = await http.post(Uri.parse('$baseURL/api/login'),
+      http.Response response = await http.post(Uri.parse(ConstantApiUrls.loginURL),
           body: jsonEncode({
             'email': email,
             'password': password,
@@ -98,7 +98,7 @@ class AuthService {
       if (authToken == null) return;
 
       http.Response response = await http.get(
-        Uri.parse('$baseURL/api/user'),
+        Uri.parse(ConstantApiUrls.getCurrentUserURL),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': authToken

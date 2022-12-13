@@ -1,0 +1,11 @@
+class ConstantApiUrls {
+  static const String _baseURL = 'http://192.168.1.3:3000';
+
+  //AUTH
+  static const String registerURL = "$_baseURL/api/register";
+  static const String loginURL = "$_baseURL/api/login";
+  static const String getCurrentUserURL = '$_baseURL/api/user';
+
+  //ADMIN
+  static const String addProductURL = "$_baseURL/admin/add_product";
+}
