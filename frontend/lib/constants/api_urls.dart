@@ -8,4 +8,5 @@ class ConstantApiUrls {
 
   //ADMIN
   static const String addProductURL = "$_baseURL/admin/add_product";
+  static const String getAllProductsURL = "$_baseURL/admin/products";
 }
