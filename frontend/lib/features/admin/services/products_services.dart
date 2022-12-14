@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 final authentication = Authentication();
 
 class ProductsServices {
+  //ADD NEW PRODUCT
   void addProduct({
     required BuildContext context, //to send showSnackBar to display errors
     required String name,
@@ -65,6 +66,7 @@ class ProductsServices {
     }
   }
 
+  //GET ALL PRODUCTS
   Future<List<Product>> getAllProducts(BuildContext context) async {
     List<Product> productList = [];
     try {
@@ -92,5 +94,30 @@ class ProductsServices {
       showSnackBar(context, e.toString());
     }
     return productList;
+  }
+
+  //DELETE SINGLE PRODUCT
+  void deleteSingleProduct({
+    required BuildContext context,
+    required String productId,
+    required VoidCallback onSuccessDeleteProduct,
+  }) async {
+    try {
+      http.Response response = await http.delete(
+        Uri.parse(ConstantApiUrls.deleteSingleProductURL),
+        body: jsonEncode({'product_id': productId}),
+        headers: authentication.getAPIsHeader(context: context),
+      );
+
+      httpResponseHandle(
+          response: response,
+          context: context,
+          onSuccess: (() {
+            onSuccessDeleteProduct();
+            showSnackBar(context, jsonDecode(response.body)['msg']);
+          }));
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 }
