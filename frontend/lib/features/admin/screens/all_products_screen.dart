@@ -15,11 +15,23 @@ class AllProductsScreen extends StatefulWidget {
 class _AllProductsScreenState extends State<AllProductsScreen> {
   List<Product>? products; //state to hold all products
   final ProductsServices productServices = ProductsServices();
+
   void fetchAllProducts() async {
     List<Product> result = await productServices.getAllProducts(context);
     setState(() {
       products = result;
     });
+  }
+
+  void deleteSingleProduct(String id, int index) async {
+    productServices.deleteSingleProduct(
+      context: context,
+      productId: id,
+      onSuccessDeleteProduct: () {
+        products!.removeAt(index); //update state and remove from client screen instanlty
+        setState(() {}); //tell the widget to be rebuild
+      },
+    );
   }
 
   @override
@@ -71,7 +83,9 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        deleteSingleProduct(productData.id!, index);
+                      },
                       icon: const Icon(
                         Icons.delete_outline,
                       ),
