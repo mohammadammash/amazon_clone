@@ -22,7 +22,8 @@ const addProductController = async (req, res) => {
 
 const getAllProductsController = async (req, res) => {
   try {
-    res.status(200).json({ msg: "get all productsooooo" });
+    const products = await Product.find({});
+    res.status(200).json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
