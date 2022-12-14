@@ -4,7 +4,7 @@ class RoutesNames {
   //-------------------------------------
   //START OF USER SCREENS
   static const homeScreen = 'home_screen';
-  static const userHomeBottomNavigation = 'home_navigation';
+  static const categoryDetailsScreen = 'category_details_screen';
   //END OF USER SCREENS
   //-------------------------------------
 
