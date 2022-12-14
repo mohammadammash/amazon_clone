@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 class Product {
   final String name;
   final String description;
-  final double quantity;
+  final num quantity;
   final List<String> images; //string as urls
   final String category;
-  final double price;
+  final num price;
   String? id; //optional to add according to response
 
   Product({
@@ -19,8 +21,8 @@ class Product {
     this.id,
   });
 
-    Map<String, dynamic> toMap() {
-    return {
+  Map<String, dynamic> toMap() {
+    final p = {
       'name': name,
       'description': description,
       'quantity': quantity,
@@ -29,6 +31,11 @@ class Product {
       'price': price,
       'id': id,
     };
+    debugPrint('-----------');
+    debugPrint(p.toString());
+    debugPrint('-----------');
+
+    return p;
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
@@ -45,5 +52,6 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) => Product.fromMap(json.decode(source));
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
 }
