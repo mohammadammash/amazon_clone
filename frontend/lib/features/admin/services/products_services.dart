@@ -24,29 +24,26 @@ class ProductsServices {
   }) async {
     try {
       //get my url images storage
-      // final cloudinary = CloudinaryPublic(ConstantConfigData.cloudinaryName,
-      //     ConstantConfigData.cloudinaryUploadPreset);
-      // List<String> imagesUrls = [];
+      final cloudinary = CloudinaryPublic(ConstantConfigData.cloudinaryName,
+          ConstantConfigData.cloudinaryUploadPreset,
+          cache: false);
+      List<String> imagesUrls = [];
 
-      // for (int i = 0; i < images.length; i++) {
-      //   CloudinaryResponse res = await cloudinary.uploadFile(
-      //     CloudinaryFile.fromFile(images[i].path, folder: name),
-      //   );
-      //   imagesUrls.add(res.secureUrl);
-      // }
+      for (int i = 0; i < images.length; i++) {
+        CloudinaryResponse res = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(images[i].path, folder: name),
+        );
+        imagesUrls.add(res.secureUrl);
+      }
 
       Product product = Product(
         name: name,
         description: description,
         quantity: quantity,
-        images: images,
+        images: imagesUrls,
         category: category,
         price: price,
       );
-
-      debugPrint('-------------');
-      debugPrint(product.toJson());
-      debugPrint('-------------');
 
       http.Response response = await http.post(
         Uri.parse(ConstantApiUrls.addProductURL),
@@ -63,7 +60,6 @@ class ProductsServices {
         }),
       );
     } catch (e) {
-      debugPrint(e.toString());
       showSnackBar(context, e.toString());
     }
   }
@@ -81,14 +77,16 @@ class ProductsServices {
         context: context,
         onSuccess: () {
           for (int i = 0; i < jsonDecode(response.body).length; i++) {
-            final jsonVal = jsonEncode(jsonDecode(response.body)[i]);
+            final val = jsonDecode(response.body)[i];
+            val.update('images', (val) => val.cast<String>());
+            debugPrint(val.runtimeType.toString());
+            final jsonVal = jsonEncode(val);
 
             productList.add(Product.fromJson(jsonVal));
           }
         },
       );
     } catch (e) {
-      debugPrint(e.toString());
       showSnackBar(context, e.toString());
     }
     return productList;
