@@ -1,4 +1,4 @@
-import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
+import 'package:amazon_clone/features/admin/screens/all_products_screen.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
@@ -16,7 +16,7 @@ class _AdminNavigatorState extends State<AdminNavigator> {
   int page = 0;
 
   List<Widget> pages = [
-    const PostsScreen(),
+    const AllProductsScreen(),
     const Center(child: Text('Second Page')),
     const Center(child: Text('Third Page')),
   ];
