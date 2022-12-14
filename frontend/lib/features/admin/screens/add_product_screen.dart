@@ -8,7 +8,6 @@ import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
 import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:amazon_clone/utils/images_picker.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -48,7 +47,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void handleSubmitAddProduct() async {
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+    if (_addProductFormKey.currentState!.validate()) {
       productsServices.addProduct(
           context: context,
           name: productNameController.text,
