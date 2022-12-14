@@ -1,10 +1,10 @@
-const Product = require("../database/models/product");
+const { Product } = require("../database/models/product");
 
 const addProductController = async (req, res) => {
   try {
     const { name, description, images, quantity, price, category } = req.body;
 
-    const product = new Product({
+    let product = new Product({
       name,
       description,
       images,
