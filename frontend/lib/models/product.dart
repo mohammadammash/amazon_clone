@@ -6,7 +6,7 @@ class Product {
   final String name;
   final String description;
   final num quantity;
-  final List<String> images; //string as urls
+  final List images; //string as urls
   final String category;
   final num price;
   String? id; //optional to add according to response
@@ -31,9 +31,6 @@ class Product {
       'price': price,
       'id': id,
     };
-    debugPrint('-----------');
-    debugPrint(p.toString());
-    debugPrint('-----------');
 
     return p;
   }
