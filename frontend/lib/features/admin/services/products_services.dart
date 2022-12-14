@@ -60,6 +60,7 @@ class ProductsServices {
         }),
       );
     } catch (e) {
+      debugPrint(e.toString());
       showSnackBar(context, e.toString());
     }
   }
@@ -77,12 +78,13 @@ class ProductsServices {
         context: context,
         onSuccess: () {
           for (int i = 0; i < jsonDecode(response.body).length; i++) {
-            final val = jsonDecode(response.body)[i];
-            val.update('images', (val) => val.cast<String>());
-            debugPrint(val.runtimeType.toString());
-            final jsonVal = jsonEncode(val);
-
-            productList.add(Product.fromJson(jsonVal));
+            productList.add(
+              Product.fromJson(
+                jsonEncode(
+                  jsonDecode(response.body)[i],
+                ),
+              ),
+            );
           }
         },
       );
