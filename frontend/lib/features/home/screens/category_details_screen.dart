@@ -1,5 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/home/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,23 @@ class CategoryDetailsScreen extends StatefulWidget {
 }
 
 class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
+  List<Product>? productsList;
+  ProductsServices productsServices = ProductsServices();
+
+  void fetchCategoryProducts() async {
+    productsList = await productsServices.fetchCategoryProducts(
+      context: context,
+      category: widget.category,
+    ); //Update state
+    setState(() {}); //inform widget to rebuild
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCategoryProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     Authentication authentication = Authentication();
