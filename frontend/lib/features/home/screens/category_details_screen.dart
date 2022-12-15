@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
 import 'package:amazon_clone/features/home/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/models/product.dart';
@@ -36,6 +37,8 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
     Authentication authentication = Authentication();
     final currentUser = authentication.getCurrentUser(context: context);
 
+    if (productsList == null) return const CustomLoadingIndicator();
+
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
@@ -55,14 +58,49 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.only(left: 15),
-                itemCount: 10,
+                itemCount: productsList!.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   childAspectRatio: 1.4,
                   mainAxisSpacing: 10,
                 ), //1 item at each row
                 itemBuilder: (context, index) {
-                  return const Text('hello');
+                  final shownProduct = productsList![index];
+
+                  return Column(
+                    children: [
+                      //IMAGE BOX
+                      SizedBox(
+                        height: 130,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.black12, width: 0.5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Image.network(
+                              shownProduct.images[0],
+                            ),
+                          ),
+                        ),
+                      ),
+                      //TEXT BOX
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(
+                          left: 0,
+                          top: 5,
+                          right: 15,
+                        ),
+                        child: Text(
+                          shownProduct.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  );
                 },
               ),
             )
