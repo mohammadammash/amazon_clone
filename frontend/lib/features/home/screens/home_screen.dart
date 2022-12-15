@@ -15,6 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void handleSearchSubmit(String searchText) {
+    Navigator.pushNamed(context, RoutesNames.searchProductsScreen,
+        arguments: searchText);
+  }
+
   @override
   Widget build(BuildContext context) {
     //Handle Navigate to specific category on click
@@ -29,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: CustomAppBar(currentUserType: currentUser.type),
+        child: CustomAppBar(
+            currentUserType: currentUser.type,
+            handleSearchSubmit: handleSearchSubmit),
       ),
       body: SingleChildScrollView(
         child: Column(
