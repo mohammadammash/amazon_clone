@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final String currentUserType;
   final String? title;
-  const CustomAppBar({super.key, required this.currentUserType, this.title});
+  final Function(String)? handleSearchSubmit;
+  const CustomAppBar({
+    super.key,
+    required this.currentUserType,
+    this.title,
+    this.handleSearchSubmit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +32,7 @@ class CustomAppBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7),
                   elevation: 1,
                   child: TextFormField(
+                    onFieldSubmitted: handleSearchSubmit,
                     decoration: InputDecoration(
                       prefixIcon: InkWell(
                         onTap: () {},
