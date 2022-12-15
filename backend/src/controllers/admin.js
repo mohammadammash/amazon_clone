@@ -29,14 +29,15 @@ const getAllProductsController = async (req, res) => {
   }
 };
 
-const deleteSingleProductController = async (req,res)=>{
-  try{
-    res.status(200).json({msg: 'DELETE SINGLE PRODUCTOOOO'});
+const deleteSingleProductController = async (req, res) => {
+  try {
+    const { product_id } = req.body;
+    await Product.findByIdAndDelete(product_id);
+    res.status(200).json({ msg: "Successfully Deleted!!!" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
-  catch(e){
-    res.status(500).json({error:e.message});
-  }
-} 
+};
 
 module.exports = {
   addProductController,
