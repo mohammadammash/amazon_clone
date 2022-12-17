@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
+import 'package:amazon_clone/features/home/services/products_services.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
 import 'package:amazon_clone/features/home/widgets/deal_of_day.dart';
 import 'package:amazon_clone/features/home/widgets/top_categories.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +19,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //
   void handleSearchSubmit(String searchText) {
     Navigator.pushNamed(context, RoutesNames.searchProductsScreen,
         arguments: searchText);
+  }
+
+  Product? productOfTheDay;
+  ProductsServices productsServices = ProductsServices();
+  void fetchDealOfDay() async {
+    final newProduct =
+        await productsServices.fetchDealOfTheDay(context: context);
+    setState(() {
+      productOfTheDay = newProduct;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDealOfDay();
   }
 
   @override
@@ -48,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             TopCategories(handleOnPressCategory: handleOnPressCategory),
             const SizedBox(height: 10),
             const CarouselImage(),
-            const DealOfDay(),
+            DealOfDay(product: productOfTheDay),
           ],
         ),
       ),
