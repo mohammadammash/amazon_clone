@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 
 class SearchedProduct extends StatelessWidget {
   final Product product;
-  const SearchedProduct({super.key, required this.product});
+  final double ratingAverage;
+  const SearchedProduct({
+    super.key,
+    required this.product,
+    required this.ratingAverage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class SearchedProduct extends StatelessWidget {
                     maxLines: 2,
                   ),
                   const SizedBox(height: 5),
-                  const StarsRating(rating: 4),
+                   StarsRating(rating: ratingAverage),
                   const SizedBox(height: 5),
                   Text(
                     '\$${product.price}',
