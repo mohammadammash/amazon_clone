@@ -3,6 +3,7 @@ import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/search/services/search_services.dart';
 import 'package:amazon_clone/features/search/widgets/searched_product.dart';
+import 'package:amazon_clone/helpers/calculate_rating_average.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,12 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                   child: ListView.builder(
                     itemCount: productsList!.length,
                     itemBuilder: (context, index) {
-                      return SearchedProduct(product: productsList![index]);
+                      return SearchedProduct(
+                        product: productsList![index],
+                        ratingAverage: calculateRatingAverage(
+                          productsList![index].ratings!,
+                        ),
+                      );
                     },
                   ),
                 )
