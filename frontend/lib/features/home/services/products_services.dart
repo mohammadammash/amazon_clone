@@ -8,14 +8,17 @@ import 'package:amazon_clone/utils/response_handle.dart';
 import 'package:flutter/material.dart';
 
 class ProductsServices {
+  //------------------------------------------
   Future<List<Product>> fetchCategoryProducts({
     required BuildContext context,
     required String category,
   }) async {
     List<Product> productList = [];
+
     try {
       http.Response response = await http.get(
-        Uri.parse("${ConstantApiUrls.getProductsByCategoryURL}?category=$category"),
+        Uri.parse(
+            "${ConstantApiUrls.getProductsByCategoryURL}?category=$category"),
         headers: authentication.getAPIsHeader(context: context),
       );
 
@@ -37,7 +40,39 @@ class ProductsServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-
     return productList;
+  }
+
+  //------------------------------------------
+  Future<Product> fetchDealOfTheDay({
+    required BuildContext context,
+  }) async {
+    Product product = Product(
+      price: 0,
+      name: '',
+      description: '',
+      quantity: 0,
+      images: [],
+      category: '',
+    );
+
+    try {
+      http.Response response = await http.get(
+        Uri.parse(ConstantApiUrls.getDealOfTheDay),
+        headers: authentication.getAPIsHeader(context: context),
+      );
+
+      httpResponseHandle(
+        response: response,
+        context: context,
+        onSuccess: () {
+          product = Product.fromJson(response.body); //json => product modl
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+
+    return product;
   }
 }
