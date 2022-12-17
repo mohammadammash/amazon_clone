@@ -2,6 +2,7 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
+import 'package:amazon_clone/features/common/widgets/rating_stars.dart';
 import 'package:amazon_clone/features/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
@@ -19,6 +20,22 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductDetailsServices productDetailsServices =
       ProductDetailsServices();
+
+  //Start of Calculate Reviews Averages On Product Page Load
+  double averageRating = 0;
+  @override
+  void initState() {
+    super.initState();
+    double totalRating = 0;
+    for (int i = 0; i < widget.product.ratings!.length; i++) {
+      totalRating += widget.product.ratings![i].rating;
+    }
+
+    if (totalRating != 0) {
+      averageRating = totalRating / widget.product.ratings!.length.toDouble();
+    }
+  }
+  //End of Calculate Reviews Averages On Product Page Load
 
   void handleAddProductRating({required double rating}) {
     productDetailsServices.postRateProduct(
@@ -64,25 +81,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               height: 5,
             ),
             const SizedBox(height: 10),
-            RichText(
-              text: TextSpan(
-                text: 'Deal Price: ',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: GlobalVariables.textSM,
-                  fontWeight: FontWeight.bold,
-                ),
-                children: [
-                  TextSpan(
-                    text: '\$${widget.product.price}',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'Deal Price: ',
                     style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: GlobalVariables.textMD,
+                      color: Colors.black,
+                      fontSize: GlobalVariables.textSM,
                       fontWeight: FontWeight.bold,
                     ),
+                    children: [
+                      TextSpan(
+                        text: '\$${widget.product.price}',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: GlobalVariables.textMD,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                StarsRating(rating: averageRating),
+              ],
             ),
             const SizedBox(height: 20),
             Text(widget.product.description),
