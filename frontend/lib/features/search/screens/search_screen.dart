@@ -1,6 +1,10 @@
+import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
+import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/search/services/search_services.dart';
+import 'package:amazon_clone/features/search/widgets/searched_product.dart';
 import 'package:amazon_clone/models/product.dart';
+import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
 
 class SearchProductsScreen extends StatefulWidget {
@@ -12,16 +16,15 @@ class SearchProductsScreen extends StatefulWidget {
 }
 
 class _SearchProductsScreenState extends State<SearchProductsScreen> {
-  List<Product>? productsList = [];a
+  Authentication authentication = Authentication();
+
+  List<Product>? productsList = [];
   final SearchServices searchServices = SearchServices();
 
   void fetchProductsSearchedFor() async {
     productsList = await searchServices.fetchSearchProducts(
         context: context, searchText: widget.searchText);
     setState(() {});
-    debugPrint('-------------------');
-    debugPrint(productsList!.length.toString());
-    debugPrint('-------------------');
   }
 
   @override
@@ -32,11 +35,32 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (productsList == null) return const CustomLoadingIndicator();
+    final currentUser = authentication.getCurrentUser(context: context);
 
     return Scaffold(
-        body: Center(
-      child: Text(widget.searchText),
-    ));
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: CustomAppBar(currentUserType: currentUser.type),
+      ),
+      body: productsList == null
+          ? const CustomLoadingIndicator()
+          : Column(
+              children: [
+                AddressBox(
+                  currentUserName: currentUser.name,
+                  currentUserAddress: currentUser.address,
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: productsList!.length,
+                    itemBuilder: (context, index) {
+                      return SearchedProduct(product: productsList![index]);
+                    },
+                  ),
+                )
+              ],
+            ),
+    );
   }
 }
