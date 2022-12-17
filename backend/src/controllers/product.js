@@ -41,8 +41,17 @@ const postRateProduct = async (req, res) => {
   }
 };
 
+const getDealOfTheDayController = async (req, res) => {
+  try {
+    res.status(200).send({ msg: "DEALLL" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
 module.exports = {
   getProductsByCategoryController,
   getProductsSearchedFor,
   postRateProduct,
+  getDealOfTheDayController,
 };
