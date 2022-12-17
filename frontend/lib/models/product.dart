@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon_clone/models/rating.dart';
 
 class Product {
   final String name;
@@ -7,7 +8,8 @@ class Product {
   final List images; //string as urls
   final String category;
   final num price;
-  String? id; //optional to add according to response
+  final List<Rating>? ratings;
+  final String? id; //optional to add according to response
 
   Product({
     required this.name,
@@ -16,6 +18,7 @@ class Product {
     required this.images,
     required this.category,
     required this.price,
+    this.ratings,
     this.id,
   });
 
@@ -28,6 +31,7 @@ class Product {
       'category': category,
       'price': price,
       'id': id,
+      'ratings': ratings,
     };
 
     return p;
@@ -35,14 +39,16 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      name: map['name'] ?? '',
-      description: map['description'] ?? '',
-      quantity: map['quantity'] ?? '',
-      images: map['images'] ?? '',
-      category: map['category'] ?? '',
-      price: map['price'] ?? '',
-      id: map['_id'] ?? '', //_id: since we're using mongoDB _id
-    );
+        name: map['name'] ?? '',
+        description: map['description'] ?? '',
+        quantity: map['quantity'] ?? '',
+        images: map['images'] ?? '',
+        category: map['category'] ?? '',
+        price: map['price'] ?? '',
+        id: map['_id'] ?? '',
+        ratings: map['ratings'] != null
+            ? List<Rating>.from(map['ratings']?.map((x) => Rating.fromMap(x)))
+            : null);
   }
 
   String toJson() => json.encode(toMap());
