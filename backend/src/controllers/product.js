@@ -24,11 +24,20 @@ const getProductsSearchedFor = async (req, res) => {
 
 const postRateProduct = async (req, res) => {
   try {
-    const {rating, productId} = req.body;
-    
-    console.log('LETS RATE THIS PRODUCT');
+    const { rating, productId } = req.body;
+    const { _id: userId } = req.user;
+
+    let product = await Product.findById(productId);
+    const newRating = {
+      userId: userId,
+      rating,
+    };
+    product.ratings.push(newRating);
+    product = await product.save();
+
+    res.status(200).json(product);
   } catch (e) {
-    res.satus(500).json({ error: e.message });
+    res.status(500).json({ error: e.message });
   }
 };
 
