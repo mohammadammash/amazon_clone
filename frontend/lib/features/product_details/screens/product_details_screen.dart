@@ -4,6 +4,7 @@ import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
 import 'package:amazon_clone/features/common/widgets/rating_stars.dart';
 import 'package:amazon_clone/features/product_details/services/products_details_services.dart';
+import 'package:amazon_clone/helpers/calculate_rating_average.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +27,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    double totalRating = 0;
-    for (int i = 0; i < widget.product.ratings!.length; i++) {
-      totalRating += widget.product.ratings![i].rating;
-    }
-
-    if (totalRating != 0) {
-      averageRating = totalRating / widget.product.ratings!.length.toDouble();
-    }
+    averageRating = calculateRatingAverage(widget.product.ratings!);
   }
   //End of Calculate Reviews Averages On Product Page Load
 
