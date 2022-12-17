@@ -14,4 +14,5 @@ class ConstantApiUrls {
   //USER
   static const String getProductsByCategoryURL = "$_baseURL/products";
   static const String getProductsSearchedForURL = "$_baseURL/products"; 
+  static const String postRateProduct = "$_baseURL/products/rating";
 }
