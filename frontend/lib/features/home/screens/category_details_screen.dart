@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
 import 'package:amazon_clone/features/home/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
@@ -30,6 +31,14 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
   void initState() {
     super.initState();
     fetchCategoryProducts();
+  }
+
+  void handleOnPressItem(index) {
+    Navigator.pushNamed(
+      context,
+      RoutesNames.productDetailsScreen,
+      arguments: productsList![index],
+    );
   }
 
   @override
@@ -67,39 +76,44 @@ class _CategoryDetailsScreenState extends State<CategoryDetailsScreen> {
                 itemBuilder: (context, index) {
                   final shownProduct = productsList![index];
 
-                  return Column(
-                    children: [
-                      //IMAGE BOX
-                      SizedBox(
-                        height: 130,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.black12, width: 0.5),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Image.network(
-                              shownProduct.images[0],
+                  return GestureDetector(
+                    onTap: () {
+                      handleOnPressItem(index);
+                    },
+                    child: Column(
+                      children: [
+                        //IMAGE BOX
+                        SizedBox(
+                          height: 130,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black12, width: 0.5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Image.network(
+                                shownProduct.images[0],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      //TEXT BOX
-                      Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(
-                          left: 0,
-                          top: 5,
-                          right: 15,
-                        ),
-                        child: Text(
-                          shownProduct.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
+                        //TEXT BOX
+                        Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(
+                            left: 0,
+                            top: 5,
+                            right: 15,
+                          ),
+                          child: Text(
+                            shownProduct.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 },
               ),
