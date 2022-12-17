@@ -20,9 +20,11 @@ app.use("/api", authRoutes);
 const adminRoutes = require("./routes/admin");
 app.use("/admin", authMiddleware, checkIfAdminMiddleware, adminRoutes);
 
-//USER ROUTES
 const productRoutes = require("./routes/product");
 app.use("/products", authMiddleware, productRoutes);
+
+const userRoutes = require("./routes/user");
+app.use("/user", authMiddleware, userRoutes);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log("Running on " + process.env.SERVER_PORT);
