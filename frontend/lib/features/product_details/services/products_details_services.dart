@@ -7,7 +7,7 @@ import 'package:amazon_clone/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsServices {
-  void rateProduct({
+  void postRateProduct({
     required BuildContext context,
     required String productId,
     required double rating,
@@ -18,13 +18,17 @@ class ProductDetailsServices {
       http.Response response =
           await http.post(Uri.parse(ConstantApiUrls.postRateProduct),
               body: jsonEncode({
-                'product_id': productId,
+                'productId': productId,
                 'rating': rating,
               }),
               headers: authentication.getAPIsHeader(context: context));
 
       httpResponseHandle(
-          response: response, context: context, onSuccess: () async {});
+          response: response,
+          context: context,
+          onSuccess: () async {
+            showSnackBar(context, 'Review Added Successfully!!');
+          });
     } catch (e) {
       showSnackBar(context, e.toString());
     }
