@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback handlePress;
+  final String? colorType;
 
-  const CustomButton({
-    super.key,
-    required this.text,
-    required this.handlePress,
-  });
+  const CustomButton(
+      {super.key,
+      required this.text,
+      required this.handlePress,
+      this.colorType});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: handlePress,
         style: ElevatedButton.styleFrom(
+          backgroundColor:
+              colorType == null ? GlobalVariables.secondaryColor : Colors.teal,
           minimumSize: const Size(
             double.infinity,
             50,
@@ -23,9 +26,10 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text.toUpperCase(),
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: GlobalVariables.textLG,
+            color: colorType == null ? Colors.white : Colors.black,
           ),
         ));
   }
