@@ -14,18 +14,18 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        child: Text(
-          text.toUpperCase(),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: GlobalVariables.textLG,
-          ),
-        ),
         onPressed: handlePress,
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(
             double.infinity,
             50,
+          ),
+        ),
+        child: Text(
+          text.toUpperCase(),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: GlobalVariables.textLG,
           ),
         ));
   }
