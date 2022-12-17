@@ -2,6 +2,7 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
+import 'package:amazon_clone/features/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,17 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  final ProductDetailsServices productDetailsServices =
+      ProductDetailsServices();
+
+  void handleAddProductRating({required double rating}) {
+    productDetailsServices.postRateProduct(
+      context: context,
+      productId: widget.product.id!,
+      rating: rating,
+    );
+  }
+
   void handleBuyNowButtonPress() {
     debugPrint('BUY NOWWWWW!!');
   }
@@ -105,7 +117,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Icons.star,
                 color: GlobalVariables.secondaryColor,
               ),
-              onRatingUpdate: (rating) {},
+              onRatingUpdate: (rating) {
+                handleAddProductRating(rating: rating);
+              },
             )
           ],
         ),
