@@ -2,7 +2,7 @@ import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
 import 'package:amazon_clone/features/user/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/user/search/services/search_services.dart';
-import 'package:amazon_clone/features/user/search/widgets/searched_product.dart';
+import 'package:amazon_clone/features/common/widgets/product_card.dart';
 import 'package:amazon_clone/helpers/calculate_rating_average.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
@@ -56,7 +56,7 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                   child: ListView.builder(
                     itemCount: productsList!.length,
                     itemBuilder: (context, index) {
-                      return SearchedProduct(
+                      return ProductCard(
                         product: productsList![index],
                         ratingAverage: calculateRatingAverage(
                           productsList![index].ratings!,
