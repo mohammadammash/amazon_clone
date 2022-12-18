@@ -8,6 +8,13 @@ class Authentication {
     return Provider.of<UserProvider>(context, listen: false).user;
   }
 
+  void updateUserProviderFromModel({
+    required BuildContext context,
+    required User user,
+  }) {
+    Provider.of<UserProvider>(context, listen: false).setUserFromModel(user);
+  }
+
   String getAuthToken({
     required BuildContext context,
   }) {
