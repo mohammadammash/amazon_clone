@@ -3,13 +3,13 @@ import 'package:amazon_clone/features/common/widgets/rating_stars.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 
-class SearchedProduct extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final Product product;
-  final double ratingAverage;
-  const SearchedProduct({
+  final double? ratingAverage;
+  const ProductCard({
     super.key,
     required this.product,
-    required this.ratingAverage,
+    this.ratingAverage,
   });
 
   @override
@@ -39,7 +39,8 @@ class SearchedProduct extends StatelessWidget {
                     maxLines: 2,
                   ),
                   const SizedBox(height: 5),
-                   StarsRating(rating: ratingAverage),
+                  if (ratingAverage != null)
+                    StarsRating(rating: ratingAverage!),
                   const SizedBox(height: 5),
                   Text(
                     '\$${product.price}',
