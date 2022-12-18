@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/home/services/products_services.dart';
