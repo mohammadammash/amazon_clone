@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart'; //to make HTTP requests
+
 class AuthService {
   //SignIn Helper
   void _updateUserProvider({required BuildContext context, required user}) {
@@ -24,13 +25,15 @@ class AuthService {
     try {
       //created instance of User model to use toJson() method to send map to server as json
       User user = User(
-          id: "",
-          name: name,
-          email: email,
-          password: password,
-          address: "",
-          type: "",
-          token: "");
+        id: "",
+        name: name,
+        email: email,
+        password: password,
+        address: "",
+        type: "",
+        token: "",
+        cart: [],
+      );
 
       http.Response response = await http.post(
           Uri.parse(ConstantApiUrls.registerURL),
@@ -61,12 +64,13 @@ class AuthService {
     required String password,
   }) async {
     try {
-      http.Response response = await http.post(Uri.parse(ConstantApiUrls.loginURL),
-          body: jsonEncode({
-            'email': email,
-            'password': password,
-          }),
-          headers: <String, String>{
+      http.Response response =
+          await http.post(Uri.parse(ConstantApiUrls.loginURL),
+              body: jsonEncode({
+                'email': email,
+                'password': password,
+              }),
+              headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
 
