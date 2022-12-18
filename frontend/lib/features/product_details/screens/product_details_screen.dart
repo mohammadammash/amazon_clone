@@ -44,7 +44,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void handleAddToCartButtonPress() {
-    debugPrint('ADD TOO CARTTT');
+    productDetailsServices.postAddToCart(
+        context: context, productId: widget.product.id!);
   }
 
   @override
