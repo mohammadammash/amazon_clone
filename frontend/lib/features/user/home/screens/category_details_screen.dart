@@ -1,7 +1,7 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
-import 'package:amazon_clone/features/home/services/products_services.dart';
+import 'package:amazon_clone/features/user/home/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';

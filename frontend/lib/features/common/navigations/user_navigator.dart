@@ -1,6 +1,6 @@
 import 'package:amazon_clone/features/common/widgets/bottom_bar.dart';
-import 'package:amazon_clone/features/home/screens/home_screen.dart';
-import 'package:amazon_clone/features/profile/screens/profile_screen.dart';
+import 'package:amazon_clone/features/user/home/screens/home_screen.dart';
+import 'package:amazon_clone/features/user/profile/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserNavigator extends StatefulWidget {

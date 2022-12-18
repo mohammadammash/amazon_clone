@@ -1,7 +1,7 @@
 import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/admin/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
-import 'package:amazon_clone/features/profile/widgets/single_product.dart';
+import 'package:amazon_clone/features/user/profile/widgets/single_product.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 

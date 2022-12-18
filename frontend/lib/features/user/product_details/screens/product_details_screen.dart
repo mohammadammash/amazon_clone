@@ -3,7 +3,7 @@ import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/carousel_image.dart';
 import 'package:amazon_clone/features/common/widgets/rating_stars.dart';
-import 'package:amazon_clone/features/product_details/services/products_details_services.dart';
+import 'package:amazon_clone/features/user/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/helpers/calculate_rating_average.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/utils/authentication.dart';

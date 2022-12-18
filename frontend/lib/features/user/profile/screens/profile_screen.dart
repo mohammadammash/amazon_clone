@@ -1,8 +1,8 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
-import 'package:amazon_clone/features/profile/widgets/below_appbar_header.dart';
-import 'package:amazon_clone/features/profile/widgets/profile_button.dart';
-import 'package:amazon_clone/features/profile/widgets/single_product.dart';
+import 'package:amazon_clone/features/user/profile/widgets/below_appbar_header.dart';
+import 'package:amazon_clone/features/user/profile/widgets/profile_button.dart';
+import 'package:amazon_clone/features/user/profile/widgets/single_product.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
 
