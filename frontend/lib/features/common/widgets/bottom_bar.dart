@@ -24,6 +24,9 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    //Adding watch context to cart to update badge whenever cart items increase
+    final userCartLength = context.watch<UserProvider>().user.cart.length;
+
     final currentUserType = Provider.of<UserProvider>(context).user.type;
     final icon2 = currentUserType == GlobalVariables.adminUserType
         ? Icons.all_inbox_outlined
@@ -43,29 +46,31 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           //------------------//
           //HOME:
           customBottomBarSingleItem(
-              _bottomBarWidth,
-              _bottomBarBorder,
-              widget.currentPage,
-              GlobalVariables.selectedNavBarColor,
-              GlobalVariables.unselectedNavBarColor,
-              Icons.home_outlined,
-              0),
+              bottomBarWidth: _bottomBarWidth,
+              bottomBarBorder: _bottomBarBorder,
+              currentPage: widget.currentPage,
+              mainColor: GlobalVariables.selectedNavBarColor,
+              secondaryColor: GlobalVariables.unselectedNavBarColor,
+              icon: Icons.home_outlined,
+              index: 0),
           customBottomBarSingleItem(
-              _bottomBarWidth,
-              _bottomBarBorder,
-              widget.currentPage,
-              GlobalVariables.selectedNavBarColor,
-              GlobalVariables.unselectedNavBarColor,
-              icon2,
-              1),
+              bottomBarWidth: _bottomBarWidth,
+              bottomBarBorder: _bottomBarBorder,
+              currentPage: widget.currentPage,
+              mainColor: GlobalVariables.selectedNavBarColor,
+              secondaryColor: GlobalVariables.unselectedNavBarColor,
+              icon: icon2,
+              index: 1),
           customBottomBarSingleItem(
-              _bottomBarWidth,
-              _bottomBarBorder,
-              widget.currentPage,
-              GlobalVariables.selectedNavBarColor,
-              GlobalVariables.unselectedNavBarColor,
-              icon3,
-              2),
+            bottomBarWidth: _bottomBarWidth,
+            bottomBarBorder: _bottomBarBorder,
+            currentPage: widget.currentPage,
+            mainColor: GlobalVariables.selectedNavBarColor,
+            secondaryColor: GlobalVariables.unselectedNavBarColor,
+            icon: icon3,
+            index: 2,
+            cartLength: userCartLength,
+          ),
         ]);
   }
 }
