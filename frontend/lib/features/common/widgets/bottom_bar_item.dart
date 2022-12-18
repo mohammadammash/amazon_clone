@@ -1,14 +1,16 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
-BottomNavigationBarItem customBottomBarSingleItem(
-  final double bottomBarWidth,
-  final double bottomBarBorder,
-  final int currentPage,
-  final Color mainColor,
-  final Color secondaryColor,
-  final IconData icon,
-  final int index,
-) {
+BottomNavigationBarItem customBottomBarSingleItem({
+  required final double bottomBarWidth,
+  required final double bottomBarBorder,
+  required final int currentPage,
+  required final Color mainColor,
+  required final Color secondaryColor,
+  required final IconData icon,
+  required final int index,
+  final int? cartLength,
+}) {
   return BottomNavigationBarItem(
     icon: Container(
       width: bottomBarWidth,
@@ -20,16 +22,17 @@ BottomNavigationBarItem customBottomBarSingleItem(
           ),
         ),
       ),
-      child: Icon(icon),
+      child: index == 2
+          ? Badge(
+              elevation: 0,
+              badgeContent: Text(cartLength.toString()),
+              badgeColor: Colors.yellow,
+              child: Icon(icon),
+            )
+          : Icon(
+              icon,
+            ),
     ),
     label: '', //should be added!!!
   );
 }
-
-//IF INDEX == 2 Add bage instead of icon in line 24
-// child: Badge(
-//                 elevation: 0,
-//                 badgeContent: const Text('2'),
-//                 badgeColor: Colors.yellow,
-//                 child: const Icon(Icons.shopping_cart_outlined),
-//               ),
