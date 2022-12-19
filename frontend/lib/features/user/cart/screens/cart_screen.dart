@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/user/cart/services/cart_services.dart';
 import 'package:amazon_clone/features/user/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
@@ -22,6 +23,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final ProductDetailsServices productsDetailsServices =
       ProductDetailsServices();
+  final CartServices cartServices = CartServices();
   final Authentication authentication = Authentication();
   int sum = 0;
 
@@ -35,10 +37,14 @@ class _CartScreenState extends State<CartScreen> {
 
   void handlePressIncrementQuantity(String productId) {
     productsDetailsServices.postAddToCart(
-        context: context, productId: productId);
+      context: context,
+      productId: productId,
+    );
   }
 
-  void handlePressDecrementQuantity(String productId) {}
+  void handlePressDecrementQuantity(String productId) {
+    cartServices.deleteProductFromCart(context: context, productId: productId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +90,8 @@ class _CartScreenState extends State<CartScreen> {
                 //turn cart in user to map from json using Product
                 final product = Product.fromMap(productCart['product']);
                 final quantity = productCart['quantity'];
+
+                // if (quantity <= 0) return Container();
 
                 return Column(
                   children: [
