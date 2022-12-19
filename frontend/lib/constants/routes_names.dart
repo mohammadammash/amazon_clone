@@ -7,6 +7,7 @@ class RoutesNames {
   static const categoryDetailsScreen = 'category_details_screen';
   static const searchProductsScreen = 'search_products_screen';
   static const productDetailsScreen = 'product_details_screen';
+  static const addressScreen = 'address_screen';
   //END OF USER SCREENS
   //-------------------------------------
 
