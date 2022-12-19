@@ -36,8 +36,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case RoutesNames.addressScreen:
+      final totalAmount = settings.arguments as String;
       return MaterialPageRoute(
-        builder: (context) => const AddressScreen(),
+        builder: (context) => AddressScreen(totalAmount: totalAmount),
       );
 
     //ADMIN
