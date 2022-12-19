@@ -70,6 +70,8 @@ class _AddressScreenState extends State<AddressScreen> {
 
     await cartServices.postSaveNewAddress(
         context: context, newAddress: addressToBeUsed);
+    await cartServices.postSubmitOrder(
+        context: context, totalAmount: int.parse(widget.totalAmount));
   }
 
   @override
