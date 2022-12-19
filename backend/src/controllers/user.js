@@ -58,7 +58,11 @@ const deleteProductFromCartController = async (req, res) => {
 
 const addCurrentUserAddressController = async (req, res) => {
   try {
-    res.status(200).json({ msg: "address" });
+    const { address } = req.body;
+    const { _id } = req.user;
+
+    const user = await User.findByIdAndUpdate(_id, { address: address }, { new: true });
+    res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
