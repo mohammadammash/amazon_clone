@@ -104,7 +104,10 @@ const postSubmitOrderController = async (req, res) => {
 
 const getCurrentUserOrdersController = async (req,res)=>{
   try{
-    res.status(200).send({msg: 'SUCCESSSS'});
+    const {_id: currentUser_id} = req.user;
+    const orders = await Order.find({userId: currentUser_id});
+
+    res.status(200).json(orders);
   }catch(e){
     res.status(500).json({ error: e.message });
   }
