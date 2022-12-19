@@ -61,5 +61,31 @@ class CartServices {
     }
   }
 
+  //
+  Future<void> postSubmitOrder({
+    required BuildContext context,
+    required int totalAmount,
+  }) async {
+    try {
+      Authentication authentication = Authentication();
 
+      http.Response response = await http.post(
+          Uri.parse(ConstantApiUrls.postSubmitOrder),
+          body: jsonEncode({'totalPrice': totalAmount}),
+          headers: authentication.getAPIsHeader(context: context));
+
+      httpResponseHandle(
+          response: response,
+          context: context,
+          onSuccess: () async {
+            authentication.updateUserProviderCartFromModelWithoutRerendering(
+              context: context,
+              cart: [],
+            );
+            showSnackBar(context, 'Order Placed Successfully!!');
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

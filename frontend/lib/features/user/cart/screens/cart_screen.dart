@@ -36,8 +36,12 @@ class _CartScreenState extends State<CartScreen> {
         .toList();
   }
 
-  void handlePressSubmitOrder() {
-    Navigator.pushNamed(context, RoutesNames.addressScreen);
+  void handlePressSubmitOrder(int sum) {
+    Navigator.pushNamed(
+      context,
+      RoutesNames.addressScreen,
+      arguments: sum.toString(),
+    );
   }
 
   void handlePressIncrementQuantity(String productId) {
@@ -76,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: CustomButton(
                   text: 'Proceed to Buy ${currentUser.cart.length} items',
-                  handlePress: handlePressSubmitOrder),
+                  handlePress: () => handlePressSubmitOrder(sum)),
             ),
             const SizedBox(height: 10),
             Container(
@@ -96,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                 final product = Product.fromMap(productCart['product']);
                 final quantity = productCart['quantity'];
 
-                // if (quantity <= 0) return Container();
+                if (quantity <= 0) return Container();
 
                 return Column(
                   children: [
