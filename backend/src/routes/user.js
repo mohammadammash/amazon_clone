@@ -6,8 +6,10 @@ const {
   deleteProductFromCartController,
   addCurrentUserAddressController,
   postSubmitOrderController,
+  getCurrentUserOrdersController,
 } = require("../controllers/user");
 
+router.get("/orders", getCurrentUserOrdersController)
 router.post("/add_to_cart", addProductToCartController);
 router.post("/address", addCurrentUserAddressController);
 router.post("/submit_order",postSubmitOrderController);
