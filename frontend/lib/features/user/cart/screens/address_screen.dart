@@ -1,9 +1,9 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
-import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:pay/pay.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -30,9 +30,17 @@ class _AddressScreenState extends State<AddressScreen> {
     _cityController.dispose();
   }
 
-  void handleContinueToPayment() {
+  List<PaymentItem> paymentItems = [
+    const PaymentItem(
+      label: 'Total',
+      amount: '99.99',
+      status: PaymentItemStatus.final_price,
+    )
+  ];
+
+  void handleConfirmPayment(paymentResult) {
     debugPrint('-------------');
-    debugPrint('Continue to payment');
+    debugPrint(paymentResult);
     debugPrint('-------------');
   }
 
@@ -98,13 +106,18 @@ class _AddressScreenState extends State<AddressScreen> {
                     textPlaceholder: 'Town/City',
                   ),
                   const SizedBox(height: 10),
-                  CustomButton(
-                    text: 'Pay on @',
-                    handlePress: () => {
-                      if (_addressFormKey.currentState!.validate())
-                        handleContinueToPayment()
-                      //else it will show error validation for user automatically
-                    },
+                  GooglePayButton(
+                    paymentConfigurationAsset:
+                        'google_pay.json', //whole location added in pubsec.yaml
+                    paymentItems: paymentItems,
+                    type: GooglePayButtonType.pay,
+                    onPaymentResult: handleConfirmPayment,
+                    loadingIndicator: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    margin: const EdgeInsets.only(top: 15.0),
+                    height: 50,
+                    width: double.infinity,
                   ),
                 ],
               ),
