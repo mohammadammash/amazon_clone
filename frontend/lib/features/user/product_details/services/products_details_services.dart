@@ -50,15 +50,9 @@ class ProductDetailsServices {
           response: response,
           context: context,
           onSuccess: () async {
-            showSnackBar(context, 'Added To Cart Successfully!!');
-            //instead of updating whole user and refresh go back to auth page
-            //only set cart in user, Generate copyWith in UserModel
-            final currentUser = authentication.getCurrentUser(context: context);
-            User newUserData = currentUser.copyWith(cart: jsonDecode(response.body)['cart']);
-            //create setUserFromModel in userProvider to update current user
-            authentication.updateUserProviderFromModel(
+            authentication.updateUserProviderCartFromModelWithoutRerendering(
               context: context,
-              user: newUserData,
+              cart: jsonDecode(response.body)['cart'],
             );
           });
     } catch (e) {
