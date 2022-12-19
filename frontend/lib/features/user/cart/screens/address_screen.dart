@@ -1,12 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:amazon_clone/features/common/widgets/button.dart';
+import 'package:amazon_clone/features/user/cart/services/cart_services.dart';
+import 'package:amazon_clone/utils/snackbar.dart';
+import 'package:flutter/material.dart';
+import 'package:pay/pay.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/text_input.dart';
 import 'package:amazon_clone/utils/authentication.dart';
-import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
 
 class AddressScreen extends StatefulWidget {
-  const AddressScreen({super.key});
+  final String totalAmount;
+  const AddressScreen({
+    Key? key,
+    required this.totalAmount,
+  }) : super(key: key);
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
@@ -14,12 +22,25 @@ class AddressScreen extends StatefulWidget {
 
 class _AddressScreenState extends State<AddressScreen> {
   Authentication authentication = Authentication();
+  final CartServices cartServices = CartServices();
 
   final _addressFormKey = GlobalKey<FormState>();
   final TextEditingController _flatBuildingController = TextEditingController();
   final TextEditingController _areaController = TextEditingController();
   final TextEditingController _pincodeController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
+
+  List<PaymentItem> paymentItems = [];
+  @override
+  void initState() {
+    super.initState();
+    paymentItems.add(
+      PaymentItem(
+          amount: widget.totalAmount,
+          label: 'Total Amount',
+          status: PaymentItemStatus.final_price),
+    );
+  }
 
   @override
   void dispose() {
@@ -30,18 +51,25 @@ class _AddressScreenState extends State<AddressScreen> {
     _cityController.dispose();
   }
 
-  List<PaymentItem> paymentItems = [
-    const PaymentItem(
-      label: 'Total',
-      amount: '99.99',
-      status: PaymentItemStatus.final_price,
-    )
-  ];
+  void handleSubmitAddress(String currentUserAddress) async {
+    String addressToBeUsed = '';
+    //already found address
+    if (currentUserAddress.isNotEmpty) {
+      addressToBeUsed = currentUserAddress;
+    }
+    //access form address
+    else {
+      if (_addressFormKey.currentState!.validate()) {
+        addressToBeUsed =
+            '${_flatBuildingController.text}, ${_areaController.text}, ${_pincodeController.text} - ${_cityController.text}';
+      } else {
+        showSnackBar(context, 'Please fill Address Data!!');
+        return;
+      }
+    }
 
-  void handleConfirmPayment(paymentResult) {
-    debugPrint('-------------');
-    debugPrint(paymentResult);
-    debugPrint('-------------');
+    await cartServices.postSaveNewAddress(
+        context: context, newAddress: addressToBeUsed);
   }
 
   @override
@@ -106,19 +134,12 @@ class _AddressScreenState extends State<AddressScreen> {
                     textPlaceholder: 'Town/City',
                   ),
                   const SizedBox(height: 10),
-                  GooglePayButton(
-                    paymentConfigurationAsset:
-                        'google_pay.json', //whole location added in pubsec.yaml
-                    paymentItems: paymentItems,
-                    type: GooglePayButtonType.pay,
-                    onPaymentResult: handleConfirmPayment,
-                    loadingIndicator: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    margin: const EdgeInsets.only(top: 15.0),
-                    height: 50,
-                    width: double.infinity,
+                  //
+                  CustomButton(
+                    text: 'Submit',
+                    handlePress: () => handleSubmitAddress(currentUserAddress),
                   ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
