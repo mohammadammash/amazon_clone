@@ -1,3 +1,4 @@
+import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/features/user/cart/services/cart_services.dart';
 import 'package:amazon_clone/features/user/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
@@ -33,6 +34,10 @@ class _CartScreenState extends State<CartScreen> {
         .map(
             (item) => sum += item['quantity'] * item['product']['price'] as int)
         .toList();
+  }
+
+  void handlePressSubmitOrder() {
+    Navigator.pushNamed(context, RoutesNames.addressScreen);
   }
 
   void handlePressIncrementQuantity(String productId) {
@@ -71,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: CustomButton(
                   text: 'Proceed to Buy ${currentUser.cart.length} items',
-                  handlePress: () {}),
+                  handlePress: handlePressSubmitOrder),
             ),
             const SizedBox(height: 10),
             Container(
