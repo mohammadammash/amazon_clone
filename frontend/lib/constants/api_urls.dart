@@ -18,4 +18,6 @@ class ConstantApiUrls {
   static const String getDealOfTheDay = "$_baseURL/products/deal_of_the_day";
   static const String postAddToCart = "$_baseURL/user/add_to_cart";
   static const String deleteFromCart = "$_baseURL/user/delete_from_cart";
+  static const String postSaveNewAddress = "$_baseURL/user/address";
+  static const String postSubmitOrder = "$_baseURL/user/submit_order";
 }
