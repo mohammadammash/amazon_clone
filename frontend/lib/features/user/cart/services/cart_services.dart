@@ -7,6 +7,7 @@ import 'package:amazon_clone/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class CartServices {
+  //
   void deleteProductFromCart({
     required BuildContext context,
     required String productId,
@@ -32,4 +33,33 @@ class CartServices {
       showSnackBar(context, e.toString());
     }
   }
+
+  //
+  Future<void> postSaveNewAddress({
+    required BuildContext context,
+    required String newAddress,
+  }) async {
+    try {
+      Authentication authentication = Authentication();
+
+      http.Response response = await http.post(
+          Uri.parse(ConstantApiUrls.postSaveNewAddress),
+          body: jsonEncode({'address': newAddress}),
+          headers: authentication.getAPIsHeader(context: context));
+
+      httpResponseHandle(
+          response: response,
+          context: context,
+          onSuccess: () async {
+            authentication.updateUserProviderAddressFromModelWithoutRerendering(
+              context: context,
+              address: jsonDecode(response.body)['address'],
+            );
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+
 }
