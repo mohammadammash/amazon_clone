@@ -24,6 +24,18 @@ class Authentication {
         .setUserFromModel(newUserData);
   }
 
+  void updateUserProviderAddressFromModelWithoutRerendering({
+    required BuildContext context,
+    required address,
+  }) {
+    showSnackBar(context, 'Address updated Successfully!!');
+    final currentUser = getCurrentUser(context: context);
+    User newUserData = currentUser.copyWith(address: address);
+
+    Provider.of<UserProvider>(context, listen: false)
+        .setUserFromModel(newUserData);
+  }
+
   String getAuthToken({
     required BuildContext context,
   }) {
