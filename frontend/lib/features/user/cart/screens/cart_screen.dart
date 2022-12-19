@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/user/product_details/services/products_details_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/button.dart';
 import 'package:amazon_clone/features/common/widgets/product_card.dart';
@@ -6,8 +7,10 @@ import 'package:amazon_clone/features/user/cart/widgets/cart_subtotal.dart';
 import 'package:amazon_clone/features/user/home/widgets/address_box.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:amazon_clone/models/user.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -17,7 +20,9 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  Authentication authentication = Authentication();
+  final ProductDetailsServices productsDetailsServices =
+      ProductDetailsServices();
+  final Authentication authentication = Authentication();
   int sum = 0;
 
   void calculateTotalSum(User user) {
@@ -27,6 +32,13 @@ class _CartScreenState extends State<CartScreen> {
             (item) => sum += item['quantity'] * item['product']['price'] as int)
         .toList();
   }
+
+  void handlePressIncrementQuantity(String productId) {
+    productsDetailsServices.postAddToCart(
+        context: context, productId: productId);
+  }
+
+  void handlePressDecrementQuantity(String productId) {}
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +70,33 @@ class _CartScreenState extends State<CartScreen> {
             const SizedBox(height: 10),
             Container(
               color: Colors.black12,
-              height: 2,
+              height: 5,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
+            //-------------------------
+            //ITEMS LIST
             ListView.builder(
               shrinkWrap: true,
               itemCount: currentUser.cart.length,
-              itemBuilder: ((context, index) {
-                final productCart = currentUser.cart[index];
+              itemBuilder: ((nestedContext, index) {
+                final productCart =
+                    context.watch<UserProvider>().user.cart[index];
                 //turn cart in user to map from json using Product
                 final product = Product.fromMap(productCart['product']);
+                final quantity = productCart['quantity'];
 
                 return Column(
                   children: [
                     ProductCard(product: product),
-                    CartProductQuantityInput(quantity: productCart['quantity']),
-                    const SizedBox(height: 10),
+                    CartProductQuantityInput(
+                      productId: product.id!,
+                      quantity: quantity,
+                      handlePressDecrementQuantity:
+                          handlePressDecrementQuantity,
+                      handlePressIncrementQuantity:
+                          handlePressIncrementQuantity,
+                    ),
+                    const Divider(thickness: 0.5, color: Colors.black)
                   ],
                 );
               }),
