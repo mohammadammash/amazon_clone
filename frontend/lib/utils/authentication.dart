@@ -1,5 +1,6 @@
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
+import 'package:amazon_clone/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +9,19 @@ class Authentication {
     return Provider.of<UserProvider>(context, listen: false).user;
   }
 
-  void updateUserProviderFromModel({
+  void updateUserProviderCartFromModelWithoutRerendering({
     required BuildContext context,
-    required User user,
+    required cart,
   }) {
-    Provider.of<UserProvider>(context, listen: false).setUserFromModel(user);
+    showSnackBar(context, 'Cart Altered Successfully!!');
+    //instead of updating whole user and refresh go back to auth page
+    //only set cart in user, Generate copyWith in UserModel
+    //create setUserFromModel in userProvider to update current user
+    final currentUser = getCurrentUser(context: context);
+    User newUserData = currentUser.copyWith(cart: cart);
+
+    Provider.of<UserProvider>(context, listen: false)
+        .setUserFromModel(newUserData);
   }
 
   String getAuthToken({
