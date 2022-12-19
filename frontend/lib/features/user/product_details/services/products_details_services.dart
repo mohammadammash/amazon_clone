@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:http/http.dart' as http;
 import 'package:amazon_clone/constants/api_urls.dart';
