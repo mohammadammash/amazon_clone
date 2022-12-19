@@ -2,7 +2,6 @@ const { Product } = require("../database/models/product");
 const Order = require("../database/models/order");
 const User = require("../database/models/user");
 
-//-----------------------------------------------------------
 const addProductToCartController = async (req, res) => {
   try {
     const { product_id } = req.body;
@@ -103,9 +102,18 @@ const postSubmitOrderController = async (req, res) => {
   }
 };
 
+const getCurrentUserOrdersController = async (req,res)=>{
+  try{
+    res.status(200).send({msg: 'SUCCESSSS'});
+  }catch(e){
+    res.status(500).json({ error: e.message });
+  }
+}
+
 module.exports = {
   addProductToCartController,
   deleteProductFromCartController,
   addCurrentUserAddressController,
   postSubmitOrderController,
+  getCurrentUserOrdersController,
 };
