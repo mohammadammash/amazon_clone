@@ -67,9 +67,22 @@ const addCurrentUserAddressController = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 };
+//------------------------------------------------------
+
+const postSubmitOrderController = async (req, res) => {
+  try {
+    const { totalPrice } = req.body;
+    const { cart, address } = req.user;
+
+    res.status(200).send({ msg: "ORDERRR" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
 
 module.exports = {
   addProductToCartController,
   deleteProductFromCartController,
   addCurrentUserAddressController,
+  postSubmitOrderController,
 };
