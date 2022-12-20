@@ -1,10 +1,14 @@
+import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Authentication {
+  //----------------------------
+  //START OF USER MODEL CRUD
   User getCurrentUser({required BuildContext context}) {
     return Provider.of<UserProvider>(context, listen: false).user;
   }
@@ -35,6 +39,17 @@ class Authentication {
     Provider.of<UserProvider>(context, listen: false)
         .setUserFromModel(newUserData);
   }
+  //END OF USER MODEL CRUD
+  //----------------------------
+
+  //-------------------------
+  //START OF AUTH TOKEN CRUD
+  Future<String> getAuthTokenFromSharedPereferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String authToken = '';
+    authToken = prefs.getString(GlobalVariables.authToken)!;
+    return authToken;
+  }
 
   String getAuthToken({
     required BuildContext context,
@@ -51,4 +66,6 @@ class Authentication {
       'x-auth-token': getAuthToken(context: context),
     };
   }
+  //END OF AUTH TOKEN CRUD
+  //----------------------------
 }
