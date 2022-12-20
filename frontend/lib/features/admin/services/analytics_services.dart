@@ -1,5 +1,4 @@
 import 'package:amazon_clone/constants/api_urls.dart';
-import 'package:amazon_clone/models/order.dart';
 import 'package:amazon_clone/utils/authentication.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
