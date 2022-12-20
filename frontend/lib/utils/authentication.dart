@@ -66,6 +66,13 @@ class Authentication {
       'x-auth-token': getAuthToken(context: context),
     };
   }
+
+  void removeAuthToken({
+    required BuildContext context,
+  }) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(GlobalVariables.authToken, '');
+  }
   //END OF AUTH TOKEN CRUD
   //----------------------------
 }
