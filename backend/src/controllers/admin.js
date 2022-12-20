@@ -1,4 +1,5 @@
 const { Product } = require("../database/models/product");
+const Order = require("../database/models/order");
 
 const addProductController = async (req, res) => {
   try {
@@ -41,8 +42,8 @@ const deleteSingleProductController = async (req, res) => {
 
 const getAllOrdersController = async (req, res) => {
   try {
-    res.status(200).json({ msg: 'all orders' });
-
+    const orders = await Order.find({});
+    res.status(200).json(orders);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
