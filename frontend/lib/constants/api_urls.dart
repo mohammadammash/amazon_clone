@@ -10,6 +10,7 @@ class ConstantApiUrls {
   static const String addProductURL = "$_baseURL/admin/add_product";
   static const String getAllProductsURL = "$_baseURL/admin/products";
   static const String deleteSingleProductURL = "$_baseURL/admin/product";
+  static const String getAllOrdersURL = "$_baseURL/admin/orders";
 
   //USER
   static const String getProductsByCategoryURL = "$_baseURL/products";
