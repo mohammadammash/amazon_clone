@@ -51,7 +51,10 @@ const getAllOrdersController = async (req, res) => {
 
 const updateOrderStatusController = async (req, res) => {
   try {
-    res.status(200).json({ msg: "Update Order Status" });
+    const { order_id, new_status } = req.body;
+    const updated_order = await Order.findByIdAndUpdate(order_id, { status: new_status }, { new: true });
+
+    res.status(200).json(updated_order);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
