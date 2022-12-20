@@ -1,5 +1,6 @@
 const { Product } = require("../database/models/product");
 const Order = require("../database/models/order");
+const fetchCategoryEarningsHelper = require("./helpers/admin");
 
 const addProductController = async (req, res) => {
   try {
@@ -62,7 +63,24 @@ const updateOrderStatusController = async (req, res) => {
 
 const getAnalyticsController = async (req, res) => {
   try {
-    res.status(200).json({ msg: "Analytics" });
+    //By Category
+    const [mobileEarnings = 0, essentialEarnings = 0, applianceEarnings = 0, bookEarnings = 0, fashionEarnings = 0] = await Promise.all([
+      fetchCategoryEarningsHelper("Mobiles"),
+      fetchCategoryEarningsHelper("Essentials"),
+      fetchCategoryEarningsHelper("Appliances"),
+      fetchCategoryEarningsHelper("Books"),
+      fetchCategoryEarningsHelper("Fashion"),
+    ]);
+
+    const earnings = {
+      mobileEarnings,
+      essentialEarnings,
+      applianceEarnings,
+      bookEarnings,
+      fashionEarnings,
+    };
+
+    res.status(200).json(earnings);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
