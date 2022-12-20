@@ -7,11 +7,13 @@ const {
   deleteSingleProductController,
   getAllOrdersController,
   updateOrderStatusController,
+  getAnalyticsController,
 } = require("../controllers/admin");
 
 router.post("/add_product", addProductController);
 router.put("/order_status", updateOrderStatusController);
 router.get("/products", getAllProductsController);
+router.get("/analytics", getAnalyticsController);
 router.get("/orders", getAllOrdersController);
 router.delete("/product", deleteSingleProductController);
 
