@@ -39,8 +39,18 @@ const deleteSingleProductController = async (req, res) => {
   }
 };
 
+const getAllOrdersController = async (req, res) => {
+  try {
+    res.status(200).json({ msg: 'all orders' });
+
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
 module.exports = {
   addProductController,
   getAllProductsController,
   deleteSingleProductController,
+  getAllOrdersController,
 };
