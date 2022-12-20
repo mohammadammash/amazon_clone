@@ -1,5 +1,7 @@
 import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:amazon_clone/features/common/services/common_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
@@ -19,7 +21,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final Authentication authentication = Authentication();
+  final AuthService authService = AuthService();
   final CommonServices commonServices = CommonServices();
+
+  void handlePressLogoutUser(BuildContext context) async {
+    authService.logoutUser(context: context);
+  }
 
   List<Order>? orders; //intial null to add loading state
   void fetchCurrentUserAllOrders() async {
@@ -65,7 +72,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        ProfileButton(text: 'Log out', handlePress: () {}),
+                        ProfileButton(
+                            text: 'Log out',
+                            handlePress: () => handlePressLogoutUser(context)),
                         ProfileButton(
                             text: 'Your Wishlist', handlePress: () {}),
                       ],
