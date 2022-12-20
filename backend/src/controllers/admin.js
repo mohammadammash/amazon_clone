@@ -49,9 +49,18 @@ const getAllOrdersController = async (req, res) => {
   }
 };
 
+const updateOrderStatusController = async (req, res) => {
+  try {
+    res.status(200).json({ msg: "Update Order Status" });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
 module.exports = {
   addProductController,
   getAllProductsController,
   deleteSingleProductController,
   getAllOrdersController,
+  updateOrderStatusController,
 };
