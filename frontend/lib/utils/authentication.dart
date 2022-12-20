@@ -67,9 +67,7 @@ class Authentication {
     };
   }
 
-  void removeAuthToken({
-    required BuildContext context,
-  }) async {
+  Future<void> removeAuthToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString(GlobalVariables.authToken, '');
   }
