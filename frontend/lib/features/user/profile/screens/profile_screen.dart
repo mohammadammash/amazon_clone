@@ -1,7 +1,8 @@
+import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/common/services/common_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
-import 'package:amazon_clone/features/user/profile/services/profile_services.dart';
 import 'package:amazon_clone/features/user/profile/widgets/below_appbar_header.dart';
 import 'package:amazon_clone/features/user/profile/widgets/profile_button.dart';
 import 'package:amazon_clone/features/user/profile/widgets/single_product.dart';
@@ -18,11 +19,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final Authentication authentication = Authentication();
-  final ProfileServices profileServices = ProfileServices();
+  final CommonServices commonServices = CommonServices();
 
   List<Order>? orders; //intial null to add loading state
   void fetchCurrentUserAllOrders() async {
-    orders = await profileServices.getCurrentUserOrders(context: context);
+    orders = await commonServices.fetchAllOrders(
+        context: context, url: ConstantApiUrls.getCurrentUserOrders);
     setState(() {});
   }
 
