@@ -3,6 +3,7 @@ import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
+import 'package:amazon_clone/utils/authentication.dart';
 import 'package:amazon_clone/utils/response_handle.dart';
 import 'package:amazon_clone/utils/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart'; //to make HTTP requests
 
 class AuthService {
+  Authentication authentication = Authentication();
   //SignIn Helper
   void _updateUserProvider({required BuildContext context, required user}) {
     Provider.of<UserProvider>(context, listen: false).setUser(user);
@@ -95,11 +97,11 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? authToken = prefs.getString(GlobalVariables.authToken);
+
+      String authToken = await authentication.getAuthTokenFromSharedPereferences();
 
       // ignore: prefer_conditional_assignment
-      if (authToken == null) return;
+      if (authToken.isEmpty) return;
 
       http.Response response = await http.get(
         Uri.parse(ConstantApiUrls.getCurrentUserURL),
@@ -115,4 +117,6 @@ class AuthService {
       debugPrint(e.toString());
     }
   }
+
+  //
 }
