@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/constants/routes_names.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/utils/authentication.dart';
@@ -97,8 +98,8 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
-
-      String authToken = await authentication.getAuthTokenFromSharedPereferences();
+      String authToken =
+          await authentication.getAuthTokenFromSharedPereferences();
 
       // ignore: prefer_conditional_assignment
       if (authToken.isEmpty) return;
@@ -119,4 +120,12 @@ class AuthService {
   }
 
   //
+  void logoutUser({
+    required BuildContext context,
+  }) {
+    authentication.removeAuthToken();
+    //remove until remove all prev stacks so no back allowed
+    Navigator.pushNamedAndRemoveUntil(
+        context, RoutesNames.authScreen, (route) => false);
+  }
 }
