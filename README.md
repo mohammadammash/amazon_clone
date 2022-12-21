@@ -3,7 +3,7 @@
 
 > This is a Full Stack Mobile application and my second experience to learn and code with Flutter Framework as main project goal by cloning simple amazon ecommerce.
 
-**[USER STORIES](#user-stories) • [IMPLEMENTATION](#implementation) • [INSTALLATION](#installation)**
+**[USER STORIES](#user-stories) • [IMPLEMENTATION](#implementation) • [INSTALLATION](#installation) • [SOURCES](#sources)**
 
 ## Stacks
 #### Frontend: 
@@ -28,7 +28,6 @@
 - I want to be able to view all orders.
 - I want to be able to view products sold by categories statistics and total earnings.
 
-<br></br>
 <a id="implementation"></a>
 
 ## Implementation
@@ -47,7 +46,6 @@
 | ------- | ------------ | -------- | --------- |
 |![cart](./readme_assets/user/cart_1.png)| ![cart_2](./readme_assets/user/cart_2.png)|![order](./readme_assets/user/submit_address.png)|![my_orders](./readme_assets/user/my_orders.png)|
 
-<br></br>
 ---------------
 
 ### Admin
@@ -58,11 +56,13 @@
 
 | All Orders | 
 | ------- |
-|![stats](./readme_assets/admin/all_orders.png)| 
+|<img src="./readme_assets/admin/all_orders.png" width=220>| 
 
-<br></br>
+<a id="sources"></a>
+## Sources
+- This project is a part of tutorial with the instructor <a href='https://github.com/RivaanRanawat'>Rivaan Ranawat</a>
+
 <a id="installation"></a>
-
 ## Installation
 1. Clone the repo
    ```sh
