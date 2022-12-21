@@ -1,9 +1,11 @@
 import 'package:amazon_clone/constants/routes_names.dart';
+import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/services/products_services.dart';
 import 'package:amazon_clone/features/common/widgets/loading_indicator.dart';
 import 'package:amazon_clone/features/user/profile/widgets/single_product.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class AllProductsScreen extends StatefulWidget {
   const AllProductsScreen({super.key});
@@ -28,7 +30,8 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
       context: context,
       productId: id,
       onSuccessDeleteProduct: () {
-        products!.removeAt(index); //update state and remove from client screen instanlty
+        products!.removeAt(
+            index); //update state and remove from client screen instanlty
         setState(() {}); //tell the widget to be rebuild
       },
     );
@@ -44,7 +47,12 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
   @override
   Widget build(BuildContext context) {
     void navigateToPage(String routeName) {
-      Navigator.pushNamed(context, routeName);
+      PersistentNavBarNavigator.pushNewScreen(
+        context,
+        screen: const AddProductScreen(),
+        withNavBar: false, // OPTIONAL VALUE. True by default.
+        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+      );
     }
 
     //null same as intial state means loading only
