@@ -1,6 +1,5 @@
 import 'package:amazon_clone/constants/api_urls.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:amazon_clone/features/common/services/common_services.dart';
 import 'package:amazon_clone/features/common/widgets/app_bar.dart';
