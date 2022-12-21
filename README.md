@@ -3,7 +3,7 @@
 
 > This is a Full Stack Mobile application and my second experience to learn and code with Flutter Framework as main project goal by cloning simple amazon ecommerce.
 
-**[USER STORIES](#user-stories) • [IMPLEMENTATION](#implementation) • [INSTALLATION](#installation)**
+**[USER STORIES](#user-stories) • [IMPLEMENTATION](#implementation) • [SOURCES](#source) • [INSTALLATION](#installation)**
 
 ## Stacks
 #### Frontend: 
@@ -47,20 +47,21 @@
 | ------- | ------------ | -------- | --------- |
 |![cart](./readme_assets/user/cart_1.png)| ![cart_2](./readme_assets/user/cart_2.png)|![order](./readme_assets/user/submit_address.png)|![my_orders](./readme_assets/user/my_orders.png)|
 
-<br></br>
 ---------------
-
 ### Admin
 ---------------
 | All Products | Delete Product | Add Product | Statistics |
 | ------- | ------------ | -------- | --------- |
 |![products](./readme_assets/admin/all_products.png)| ![delete_product](./readme_assets/admin/delete_product.png)|![add_product](./readme_assets/admin/add_product.png)|![stats](./readme_assets/admin/stats.png)|
 
-| All Orders | 
+| All Orders |
 | ------- |
-|![stats](./readme_assets/admin/all_orders.png)| 
+|<img src="./readme_assets/admin/all_orders.png" width=200>|
 
-<br></br>
+<a id="source"></a>
+## Sources
+- This project is a part of Flutter tutorial with instructor <a href="https://github.com/RivaanRanawat">Rivaan Ranawat</a>
+
 <a id="installation"></a>
 
 ## Installation
